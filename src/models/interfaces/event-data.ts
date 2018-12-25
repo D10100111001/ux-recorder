@@ -3,12 +3,12 @@ import { EventType } from "../event-type";
 import { PagePoint } from "./page-point";
 import { LinkedListItem } from "./linked-list";
 
-export interface EventData extends LinkedListItem<EventData> {
+export interface EventData extends LinkedListItem<string> {
     id: string;
     screenPoint?: PagePoint;
     siteState: SiteState; 
     date: number;
-    url: URL;
+    url: string;
     htmlDiff?: any;
     html: string;
     screenshotBase64?: string;

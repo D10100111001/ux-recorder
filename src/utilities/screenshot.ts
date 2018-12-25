@@ -1,16 +1,16 @@
-import * as html2Canvas from 'html2canvas';
+import html2Canvas from 'html2canvas';
 
-export class Screenshot {
+export class ScreenshotUtility {
     constructor() {}
     
-    private getCanvas() {
+    private getCanvas(element: HTMLElement) {
         return new Promise<HTMLCanvasElement>(resolve => 
-            html2Canvas(document.documentElement)
+            html2Canvas(element)
                 .then((canvas) => resolve(canvas)));
     }
 
-    async capture() {
-        const canvas = await this.getCanvas();
+    async capture(element: HTMLElement = document.documentElement) {
+        const canvas = await this.getCanvas(element);
         const screenshotDataUrl = canvas.toDataURL("image/png");
         return screenshotDataUrl.split(',').pop();
     }

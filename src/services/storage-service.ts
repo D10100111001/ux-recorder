@@ -1,7 +1,7 @@
 import { IStorageService } from "../models/interfaces/storage-service";
 import { SessionData } from "../models/interfaces/session-data";
 import { EventData } from "../models/interfaces/event-data";
-import { LocalStorageUtilities } from "../utilities/local-storage";
+import { LocalStorageUtility } from "../utilities/local-storage";
 
 export class LocalStorageService implements IStorageService {
 
@@ -16,17 +16,17 @@ export class LocalStorageService implements IStorageService {
     }
 
     async getSessions() {
-        return LocalStorageUtilities.get<SessionData>(this._key);
+        return LocalStorageUtility.get<SessionData>(this._key);
     }
 
     async deleteStore() {
-        return LocalStorageUtilities.delete(this._key);
+        return LocalStorageUtility.delete(this._key);
     }
 
     async saveSession(session: SessionData) {
-        return LocalStorageUtilities.store(this._key, session, session.id, (newData, oldData) => {
+        return LocalStorageUtility.store(this._key, session, session.id, (newData, oldData) => {
             newData.events = oldData.events.concat(newData.events);
             return newData;
-        });
+        }, ['events.html']);
     }
 }

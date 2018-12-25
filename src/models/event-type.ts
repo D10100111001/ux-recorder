@@ -19,6 +19,7 @@ export enum EventType {
 
 export const getEventType = (target: EventTarget, type: string): EventType => {
     const isSupported = type in EVENT_TYPE_MAP;
+    console.log(type);
     let eventType = EventType.UNSUPPORTED;
     if (isSupported) {
         const et = EVENT_TYPE_MAP[type];

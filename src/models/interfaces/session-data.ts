@@ -8,9 +8,11 @@ export interface SessionData {
     request?: HttpData;
     response?: HttpData;
     consoleLogs?: ConsoleLog[];
-    url: URL;
+    scriptHostUrl: string;
+    url: string;
     startDate: number;
     endData?: number;
+    lastActivityDate?: number;
     activityTimeFrames: number[];
     initialHtml: string;
     events: EventData[];

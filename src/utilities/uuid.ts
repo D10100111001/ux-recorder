@@ -2,7 +2,7 @@ const lut = Array(256).fill(undefined).map((_, i) => (i < 16 ? '0' : '') + (i).t
 
 type RandomValues = { d0: number, d1: number, d2: number, d3: number };
 
-export class UUID {
+export class UUIDUtility {
 
     private static formatUuid({ d0, d1, d2, d3 }: RandomValues) {
         return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' +
@@ -35,6 +35,6 @@ export class UUID {
     };
 
     static generate() {
-        return UUID.formatUuid(UUID.getRandomValuesFunc()());
+        return UUIDUtility.formatUuid(UUIDUtility.getRandomValuesFunc()());
     }
 }

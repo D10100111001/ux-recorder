@@ -1,4 +1,4 @@
-export class CookieParser {
+export class CookieParserUtility {
     static parse(cookieStr: string) {
         const cookies = {};
         cookieStr.split(';').forEach(keyVal => {

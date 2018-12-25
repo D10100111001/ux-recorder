@@ -1,4 +1,4 @@
-export class EventHelper {
+export class ElementUtility {
     static getElementId(target: EventTarget) {
         const isElement = target instanceof Element;
         if (!isElement) return null;

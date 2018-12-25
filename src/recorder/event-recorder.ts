@@ -1,50 +1,60 @@
-import { GridPoint } from "../models/interfaces/grid-point";
 import { PagePoint } from "../models/interfaces/page-point";
 import { EventData } from "../models/interfaces/event-data";
 import { SessionData } from "../models/interfaces/session-data";
 import { getEventType } from "../models/event-type";
-import { EventHelper } from "../helpers/event-helper";
-import { HtmlDiff } from "../utilities/html-diff";
-import { JobRunner } from "../job-runner";
-import { Screenshot } from "../utilities/screenshot";
-import { UUID } from "../utilities/uuid";
+import { UUIDUtility } from "../utilities/uuid";
+import { ElementUtility } from '../utilities/element-helper';
+import { WebWorkerTaskRunner } from "../worker";
+import { HtmlDiffRequest } from "../models/interfaces/html-diff-request";
+import { HtmlDiffChange } from "../models/interfaces/html-diff-change";
+import { WorkerCreator } from "../worker/worker-creator";
 
 export class EventRecorder {
 
-    private _screenshotUtility = new Screenshot();
+    private _htmlDiffWorker: WebWorkerTaskRunner<HtmlDiffRequest, HtmlDiffChange>;
+    //private _screenshotWorker: WebWorkerTaskRunner<string, string>;
 
-    constructor() {}
+    constructor(private _sessionData: SessionData) {}
 
-    async createEvent(event: Event, sessionData: SessionData) {
-        const lastEvent = sessionData.events.slice(-1)[0];
+    async init() {
+        const htmlDiffWorkerCreator = new WorkerCreator(document, this._sessionData.scriptHostUrl, 'workers/html-diff.js');
+        await htmlDiffWorkerCreator.init();
+        this._htmlDiffWorker = new WebWorkerTaskRunner<HtmlDiffRequest, HtmlDiffChange>(htmlDiffWorkerCreator);
+        // const screenshotWorkerCreator = new WorkerCreator(document, this._sessionData.scriptHostUrl, 'workers/screenshot.js');
+        // await screenshotWorkerCreator.init();
+        // this._screenshotWorker = new WebWorkerTaskRunner<string, string>(screenshotWorkerCreator, -1);
+    }
+
+    async createEvent(event: Event) {
+        const date = Date.now();
+        const lastEvent = this._sessionData.events.slice(-1)[0];
         const eventData: EventData = {
-            id: UUID.generate(),
+            id: UUIDUtility.generate(),
             siteState: {
                 activeElementSelector: '',
                 focusedElementSelector: ''
             },
-            date: Date.now(),
-            url: new URL(window.location.href),
+            date,
+            url: window.location.href,
             html: new XMLSerializer().serializeToString(document),
             type: getEventType(event.target, event.type),
-            targetElementSelector: EventHelper.getElementId(event.target),
-            previous: lastEvent,
+            targetElementSelector: ElementUtility.getElementId(event.target),
             finishedProcessing: false
         };
-        sessionData.events.push(eventData);
-
-        lastEvent.next = eventData;
+        this._sessionData.events.push(eventData);
+        if (lastEvent) {
+            eventData.previousId = lastEvent.id;
+            lastEvent.nextId = eventData.id;
+        }
 
         if (event instanceof MouseEvent)
             eventData.screenPoint = this.getMouseEventData(event);
 
-        const jobRunner = new JobRunner();
-        await jobRunner.executeTask(
-            async () => {
-                eventData.htmlDiff = await HtmlDiff.diff(lastEvent.html, eventData.html);
-                eventData.screenshotBase64 = await this._screenshotUtility.capture();
-                eventData.finishedProcessing = true;
-            });
+        eventData.htmlDiff = await this._htmlDiffWorker.execute({ source: lastEvent ? lastEvent.html : this._sessionData.initialHtml, target: eventData.html });
+        //eventData.screenshotBase64 = await this._screenshotWorker.execute(eventData.html);
+        eventData.finishedProcessing = true;
+
+        return eventData;
     }
 
     private getMouseEventData(event: MouseEvent): PagePoint {
