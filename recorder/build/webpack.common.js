@@ -24,7 +24,10 @@ module.exports = {
     globalObject: 'this'
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+      '@models': path.resolve(__dirname, '../../models/')
+    }
   },
   module: {
     rules: [

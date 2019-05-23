@@ -1,5 +1,5 @@
-import { NetworkResponse } from '../models/interfaces/network-event';
-import { HttpMethod } from "../models/http-method";
+import { NetworkResponse } from '@models/interfaces/network-event';
+import { HttpMethod } from "@models/http-method";
 
 export const XHRProxy = (document: Document, loadCallback: (response: NetworkResponse) => void) => {
 	const origXMLHttpRequest = (document.defaultView as any).XMLHttpRequest;

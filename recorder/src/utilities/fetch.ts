@@ -1,5 +1,5 @@
-import { NetworkResponse } from "../models/interfaces/network-event";
-import { HttpMethod } from "../models/http-method";
+import { NetworkResponse } from "@models/interfaces/network-event";
+import { HttpMethod } from "@models/http-method";
 
 export const fetchProxy = (document: Document, loadCallback: (response: NetworkResponse) => void): GlobalFetch['fetch'] => {
 	const origFetch: GlobalFetch['fetch'] = document.defaultView.fetch.bind(document.defaultView);

@@ -1,12 +1,11 @@
-import { SessionData } from "../models/interfaces/session-data";
+import { SessionData } from "@models/interfaces/session-data";
 import { CookieParserUtility } from "../utilities/cookie-parser";
-import { UserEventType, EVENT_TYPE_REVERSE_MAP } from "../models/user-event-type";
+import { UserEventType, EVENT_TYPE_REVERSE_MAP } from "@models/user-event-type";
 import { ObjectUtility } from "../utilities/object";
 import { EventRecorderService } from "./event-recorder-service";
 import { UUIDUtility } from "../utilities/uuid";
 import { LocalRecorderService } from "./local-storage-service";
-import { IStorageService } from "../models/interfaces/storage-service";
-import { UserEvent } from "../models/interfaces/user-event";
+import { UserEvent } from "@models/interfaces/user-event";
 import { Store, StorageUtility } from "../utilities/local-storage";
 import { XHRProxy } from "../utilities/xhr";
 import { fetchProxy } from "../utilities/fetch";

@@ -1,9 +1,9 @@
 import { ScreenshotUtility } from "../utilities/screenshot";
 import { TaskWorkerScript } from "./task-script";
-import { WorkerTaskError } from "../models/worker-task-error";
-import { WorkerTaskStatus } from "../models/worker-task-status";
-import { TaskWorkerRequest } from "../models/interfaces/task-worker-request";
-import { TaskWorkerResponse } from "../models/interfaces/task-worker-response";
+import { WorkerTaskError } from "@models/worker-task-error";
+import { WorkerTaskStatus } from "@models/worker-task-status";
+import { TaskWorkerRequest } from "@models/interfaces/task-worker-request";
+import { TaskWorkerResponse } from "@models/interfaces/task-worker-response";
 
 export class ScreenshotWorkerScript extends TaskWorkerScript<string, string> {
     private _screenshotUtility = new ScreenshotUtility();

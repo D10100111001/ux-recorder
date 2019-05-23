@@ -4,7 +4,11 @@
 		"target": "es2015",
 		"module": "commonjs",
 		"esModuleInterop": true,
-		"outDir": "dist"
+		"outDir": "dist",
+		"baseUrl": "./",
+		"paths": {
+			"@models/*": ["../models/*"]
+		}
 	},
 	"exclude": [
 		"node_modules",

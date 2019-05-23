@@ -1,6 +1,6 @@
-import { IStorageService as IRecorderStorageService } from "../models/interfaces/storage-service";
-import { SessionData } from "../models/interfaces/session-data";
-import { UserEvent } from "../models/interfaces/user-event";
+import { IRecorderStorageService } from "@models/interfaces/storage-service";
+import { SessionData } from "@models/interfaces/session-data";
+import { UserEvent } from "@models/interfaces/user-event";
 import { StorageUtility, Store } from "../utilities/local-storage";
 
 export class LocalRecorderService implements IRecorderStorageService {

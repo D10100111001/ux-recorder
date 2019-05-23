@@ -1,20 +1,20 @@
-import { PagePoint } from "../models/interfaces/page-point";
-import { UserEvent } from "../models/interfaces/user-event";
-import { SessionData } from "../models/interfaces/session-data";
-import { getEventType as getUserEventType } from "../models/user-event-type";
-import { getEventType as getMutationEventType, MutationEventType } from "../models/mutation-event-type";
+import { PagePoint } from "@models/interfaces/page-point";
+import { UserEvent } from "@models/interfaces/user-event";
+import { SessionData } from "@models/interfaces/session-data";
+import { getEventType as getUserEventType } from "@models/user-event-type";
+import { getEventType as getMutationEventType, MutationEventType } from "@models/mutation-event-type";
 import { UUIDUtility } from "../utilities/uuid";
 import { ElementUtility as NodeUtility } from '../utilities/node-helper';
 import { WebWorkerTaskRunner } from "../worker";
-import { HtmlDiffRequest } from "../models/interfaces/html-diff-request";
-import { HtmlDiffChange } from "../models/interfaces/html-diff-change";
+import { HtmlDiffRequest } from "@models/interfaces/html-diff-request";
+import { HtmlDiffChange } from "@models/interfaces/html-diff-change";
 import { WorkerCreator } from "../worker/worker-creator";
-import { PageEvent, DomEvent, PageEventType } from "../models/interfaces/event";
-import { RenderEvent, AttributeChange, TextChange, NodeChange } from "../models/interfaces/render-event";
-import { ScriptErrorEvent } from "../models/interfaces/script-event";
-import { NavigationEvent, Resource, ResourcePerformanceData } from "../models/interfaces/navigation-event";
-import { LogEvent, LogType } from "../models/interfaces/log-event";
-import { NetworkResponse, NetworkEvent } from "../models/interfaces/network-event";
+import { PageEvent, DomEvent, PageEventType } from "@models/interfaces/event";
+import { RenderEvent, AttributeChange, TextChange, NodeChange } from "@models/interfaces/render-event";
+import { ScriptErrorEvent } from "@models/interfaces/script-event";
+import { NavigationEvent, Resource, ResourcePerformanceData } from "@models/interfaces/navigation-event";
+import { LogEvent, LogType } from "@models/interfaces/log-event";
+import { NetworkResponse, NetworkEvent } from "@models/interfaces/network-event";
 
 export class EventRecorderService {
 

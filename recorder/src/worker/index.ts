@@ -1,13 +1,13 @@
 import { UUIDUtility } from "../utilities/uuid";
-import { ITaskRunner } from "../models/interfaces/task-runner";
-import { TypedWorker } from "../models/interfaces/typed-worker";
-import { WorkerTaskError } from "../models/worker-task-error";
-import { WorkerTaskStatus } from "../models/worker-task-status";
-import { TimeStats } from "../models/time-stats";
+import { ITaskRunner } from "@models/interfaces/task-runner";
+import { TypedWorker } from "@models/interfaces/typed-worker";
+import { WorkerTaskError } from "@models/worker-task-error";
+import { WorkerTaskStatus } from "@models/worker-task-status";
+import { TimeStats } from "@models/time-stats";
 import { MonoEventHandle } from "../utilities/event-handle";
-import { TaskWorkerRequest } from "../models/interfaces/task-worker-request";
-import { TaskWorkerResponse } from "../models/interfaces/task-worker-response";
-import { WorkerError } from "../models/worker-error";
+import { TaskWorkerRequest } from "@models/interfaces/task-worker-request";
+import { TaskWorkerResponse } from "@models/interfaces/task-worker-response";
+import { WorkerError } from "@models/worker-error";
 import { WorkerCreator } from "./worker-creator";
 
 export class WorkerTaskStats extends TimeStats { }
