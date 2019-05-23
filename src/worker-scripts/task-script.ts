@@ -14,7 +14,6 @@ export abstract class TaskWorkerScript<TIn, TOut> {
         onmessage = (e: TypedMessageEvent<TaskWorkerRequest<TIn>>) => {
             this.run(e.data).then(
                 result => {
-                    console.log(JSON.stringify(result));
                     (postMessage as any as Worker["postMessage"])(result)
                 });
         }

@@ -32,4 +32,13 @@ export class ObjectUtility {
         return currObjs;
     }
 
+    static restoreWindowProperty<T>(name: string): T {
+        const iframe = document.createElement('iframe');
+        document.head.append(iframe);
+        const pd = Object.getOwnPropertyDescriptor(iframe.contentWindow, name);
+        Object.defineProperty(window, name, pd);
+        iframe.remove();
+        return window[name];
+    }
+
 }

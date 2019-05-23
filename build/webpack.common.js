@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   entry: {
     'ux-recorder': './src/index.ts',
-    'workers/html-diff': './src/worker-scripts/html-diff.ts',
+    //'workers/html-diff': './src/worker-scripts/html-diff.ts',
     //'workers/screenshot': './src/worker-scripts/screenshot.ts'
   },
   devServer: {

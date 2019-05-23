@@ -1,12 +1,28 @@
 import { ObjectUtility } from "./object";
 
-export class LocalStorageUtility {
-    static store<T>(key: string, data: T, dataId: string, conflictResolutionFn: (newData: T, oldData: T) => T, propertiesToIgnore?: string[]) {
-        const existingData = JSON.parse(window.localStorage.getItem(key));
-        
+export enum Store {
+    Local = 1,
+    LocalSession
+}
+
+export const StoreMap: Record<Store, Storage> = {
+    [Store.Local]: window.localStorage || ObjectUtility.restoreWindowProperty('localStorage'),
+    [Store.LocalSession]: window.sessionStorage || ObjectUtility.restoreWindowProperty('sessionStorage')
+}
+
+export class StorageUtility {
+
+    private static getStorage(store: Store) {
+        return StoreMap[store];
+    }
+
+    static mergeStore<T>(key: string, data: T, dataId: string, conflictResolutionFn: (newData: T, oldData: T) => T, propertiesToIgnore?: string[], store = Store.Local) {
+        const storage = StorageUtility.getStorage(store);
+        const existingData = JSON.parse(storage.getItem(key));
+
         let resultData: any;
         if (propertiesToIgnore && propertiesToIgnore.length)
-            this.processData(data, propertiesToIgnore);
+            StorageUtility.processData(data, propertiesToIgnore);
 
         if (existingData && dataId in existingData) {
             const oldData = existingData[dataId];
@@ -15,8 +31,13 @@ export class LocalStorageUtility {
         } else {
             resultData = { ...existingData, [dataId]: data };
         }
-        
-        window.localStorage.setItem(key, JSON.stringify(resultData));
+
+        storage.setItem(key, JSON.stringify(resultData));
+        return true;
+    }
+
+    static set<T>(key: string, data: T, store = Store.Local) {
+        StorageUtility.getStorage(store).setItem(key, JSON.stringify(data));
         return true;
     }
 
@@ -34,11 +55,11 @@ export class LocalStorageUtility {
         });
     }
 
-    static get<T>(key: string) {
-        return JSON.parse(window.localStorage.getItem(key)) as Record<string, T>;
+    static get<T>(key: string, store = Store.Local) {
+        return JSON.parse(StorageUtility.getStorage(store).getItem(key)) as T | null;
     }
 
-    static delete(key: string) {
-        window.localStorage.removeItem(key);
+    static delete(key: string, store = Store.Local) {
+        StorageUtility.getStorage(store).removeItem(key);
     }
 }

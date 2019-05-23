@@ -1,8 +1,10 @@
-import { EventData } from "./event-data";
+import { UserEvent } from "./user-event";
 import { SessionData } from "./session-data";
 
-export interface IStorageService {
-    saveEvent(sessionId: string, event: EventData): Promise<boolean>;
-    saveEvents(sessionId, string, events: EventData[]): Promise<boolean>;
+export interface IRecorderStorageService {
+    saveEvent(sessionId: string, event: UserEvent): Promise<boolean>;
+    saveEvents(sessionId, string, events: UserEvent[]): Promise<boolean>;
+    getSessions(): Promise<Record<string, SessionData>>;
     saveSession(session: SessionData): Promise<boolean>;
+    deleteStore(): Promise<boolean>;
 }

@@ -3,5 +3,8 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
-  devtool: 'source-map'
+  devtool: 'source-map',
+  devServer: {
+    public: 'http://localhost:8080'
+  }
 });

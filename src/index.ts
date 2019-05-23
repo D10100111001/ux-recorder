@@ -1,10 +1,9 @@
-import { Recorder } from './recorder';
+import { RecorderService } from './services/recorder-service';
 
 const registerUxRecorder = () => {
-    const scriptHostUrl = document.getElementById('ux-recorder-script-tag') as HTMLScriptElement;
-    const recorder = new Recorder(new URL(scriptHostUrl.src).origin, document);
-    document.defaultView["UX-Recorder"] = recorder.sessionData;
-    recorder.init();
+    const scriptHostUrl = document.getElementById('ux-recorder-script-tag') as HTMLScriptElement | null;
+    const recorder = new RecorderService(scriptHostUrl ? new URL(scriptHostUrl.src).origin : '', 'test', document);
+    recorder.init().then((sessionData) => document.defaultView["UX-Recorder"] = sessionData);
 }
 
 if (document.readyState == 'loading')

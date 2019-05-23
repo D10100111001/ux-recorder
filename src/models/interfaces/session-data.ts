@@ -1,9 +1,13 @@
 import { HttpData } from "./http-data";
 import { ConsoleLog } from "./console-log";
-import { EventData } from "./event-data";
+import { UserEvent } from "./user-event";
+import { RenderEvent } from "./render-event";
+import { PageEvent } from "./event";
 
 export interface SessionData {
     id: string;
+    userId: string; // SessionId, token, fingerprint, etc
+    appId: string;
     cookies: Record<string, string>;
     request?: HttpData;
     response?: HttpData;
@@ -15,5 +19,5 @@ export interface SessionData {
     lastActivityDate?: number;
     activityTimeFrames: number[];
     initialHtml: string;
-    events: EventData[];
+    events: PageEvent[];
 }

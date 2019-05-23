@@ -61,3 +61,11 @@ There are a lot of use cases for this type of recording. The obvious use cases a
   - Post back to API
   - Batch vs Single
   
+
+Treat HTML and CSS updates separate from user action.
+Prefer websockets for live sharing
+
+
+
+## TODO:
+- Add fields to contain mutation data (added and removed nodes, attributes, etc) 
