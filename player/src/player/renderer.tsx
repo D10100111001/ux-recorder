@@ -2,25 +2,26 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import html2canvas from 'html2canvas';
 
-import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 
 import { PlayerFrame } from "../models/frame";
 
-const styles = (theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     },
     input: {
         display: 'none',
     },
-});
+}));
 
-export interface Props extends WithStyles<typeof styles> {
+export interface Props {
     frame: PlayerFrame;
 }
 
-const Renderer = ({ classes, frame }: Props) => {
+export const Renderer = ({ frame }: Props) => {
 
+    const classes = useStyles();
     const iframe = useRef<HTMLIFrameElement>(null);
 
     const [renderedFrame, setRenderedFrame] = useState<HTMLCanvasElement | null>(null);
@@ -45,5 +46,3 @@ const Renderer = ({ classes, frame }: Props) => {
         </div>
     );
 }
-
-export default withStyles(styles)(Renderer);

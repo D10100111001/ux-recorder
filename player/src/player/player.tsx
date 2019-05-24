@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 
-import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 
 import { PlayerFrame } from "../models/frame";
-import Renderer from "./renderer";
+import { Renderer } from "./renderer";
 import { PlayerState } from "../models/player-state";
 
-
-const styles = (theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     },
     input: {
         display: 'none',
     },
-});
+}));
 
-export interface Props extends WithStyles<typeof styles> {
+export interface Props {
     frames: PlayerFrame[];
 }
 
-const BasePlayer = ({ classes, frames }: Props) => {
+export const Player = ({ frames }: Props) => {
 
+    const classes = useStyles();
     const [state, setState] = useState(PlayerState.NotStarted);
     const [currentFrame, setCurrentFrame] = useState<PlayerFrame | null>(null);
     const [currentTimeSecs, setCurrentTimeSecs] = useState(0);
@@ -83,7 +83,7 @@ const BasePlayer = ({ classes, frames }: Props) => {
         <div>
             <div style={{ height: 500, width: 885 }}>
                 {currentFrame ?
-                    <Renderer frame={currentFrame}></Renderer> :
+                    <Renderer frame={currentFrame} /> :
                     <div></div>
                 }
             </div>
@@ -100,5 +100,3 @@ const BasePlayer = ({ classes, frames }: Props) => {
         </div>
     );
 }
-
-export const Player = withStyles(styles)(BasePlayer);
