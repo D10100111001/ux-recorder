@@ -1,4 +1,4 @@
-import { WorkerStatus } from "../worker";
+import { WorkerStatus } from "./worker-status";
 
 export class WorkerError extends Error {
     

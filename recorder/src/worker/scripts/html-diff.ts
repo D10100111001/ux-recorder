@@ -1,11 +1,13 @@
 import { TaskWorkerScript } from "./task-script";
-import { HtmlDiffUtility } from "../utilities/html-diff";
-import { HtmlDiffRequest } from "@models/interfaces/html-diff-request";
-import { HtmlDiffChange } from "@models/interfaces/html-diff-change";
-import { TaskWorkerRequest } from "@models/interfaces/task-worker-request";
-import { TaskWorkerResponse } from "@models/interfaces/task-worker-response";
-import { WorkerTaskError } from "@models/worker-task-error";
-import { WorkerTaskStatus } from "@models/worker-task-status";
+import { HtmlDiffUtility } from "../../utilities/html-diff";
+import { 
+    WorkerTaskStatus, 
+    TaskWorkerRequest, 
+    WorkerTaskError, 
+    TaskWorkerResponse, 
+    HtmlDiffRequest, 
+    HtmlDiffChange 
+} from "../models";
 
 export class HtmlDiffWorkerScript extends TaskWorkerScript<HtmlDiffRequest, HtmlDiffChange> {
     async run(request: TaskWorkerRequest<HtmlDiffRequest>) {

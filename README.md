@@ -8,6 +8,23 @@ Simulation will just replay the events on a live site instance while the player 
 
 There are a lot of use cases for this type of recording. The obvious use cases are for bug reporting, analytics, campaign tracking, and A/B testing. Eventually this can be compact enough for live sharing. Instead of sending bytes of each window frame (images) with huge size and network costs, it will be a few bytes of data.
 
+## Contributing
+
+### Setting up the Recorder
+1. Clone the repo.
+2. cd into the recorder folder. 
+3. Run `npm run dev`
+4. Use a chrome extension like JavaScript Injector to inject the resulting dist entry js file into a website of your choosing. https://chrome.google.com/webstore/detail/javascript-injector/djnjegpffahmfpjdlkciiecmeaebghlk
+OR
+4. Copy and paste this into the javascript console of any website (This will not work or give limited functionality if the website has various CSPs enabled.): 
+```js
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'http://localhost:8080/ux-recorder.js';
+script.id = 'ux-recorder-script-tag';
+document.head.appendChild(script);
+```
+
 ## Random
 - Basic Data
   - Cookies (Session, Sticky, etc)

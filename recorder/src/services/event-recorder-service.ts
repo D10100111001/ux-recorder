@@ -6,8 +6,8 @@ import { getEventType as getMutationEventType, MutationEventType } from "@models
 import { UUIDUtility } from "../utilities/uuid";
 import { ElementUtility as NodeUtility } from '../utilities/node-helper';
 import { WebWorkerTaskRunner } from "../worker";
-import { HtmlDiffRequest } from "@models/interfaces/html-diff-request";
-import { HtmlDiffChange } from "@models/interfaces/html-diff-change";
+import { HtmlDiffRequest } from "src/worker/models/interfaces/html-diff-request";
+import { HtmlDiffChange } from "src/worker/models/interfaces/html-diff-change";
 import { WorkerCreator } from "../worker/worker-creator";
 import { PageEvent, DomEvent, PageEventType } from "@models/interfaces/event";
 import { RenderEvent, AttributeChange, TextChange, NodeChange } from "@models/interfaces/render-event";
