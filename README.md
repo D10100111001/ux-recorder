@@ -8,7 +8,7 @@ Simulation will just replay the events on a live site instance while the player 
 
 There are a lot of use cases for this type of recording. The obvious use cases are for bug reporting, analytics, campaign tracking, and A/B testing. Eventually this can be compact enough for live sharing. Instead of sending bytes of each window frame (images) with huge size and network costs, it will be a few bytes of data.
 
-## Contributing
+## Try it out
 
 ### Setting up the Recorder
 1. Clone the repo.
