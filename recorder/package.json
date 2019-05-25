@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/diff": "^3.5.3",
     "clean-webpack-plugin": "^1.0.1",
     "ts-loader": "^5.4.5",
     "typescript": "^3.4.5",
@@ -22,7 +21,5 @@
     "webpack-dev-server": "^3.4.1",
     "webpack-merge": "^4.2.1"
   },
-  "dependencies": {
-    "diff": "^3.5.0"
-  }
+  "dependencies": {}
 }
