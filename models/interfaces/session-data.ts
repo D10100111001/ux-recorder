@@ -1,5 +1,6 @@
 import { HttpData } from "./http-data";
 import { PageEvent } from "./event";
+import { Point } from "./point";
 
 export interface SessionData {
     id: string;
@@ -11,9 +12,10 @@ export interface SessionData {
     scriptHostUrl: string;
     url: string;
     startDate: number;
-    endData?: number;
+    endDate?: number;
     lastActivityDate?: number;
     activityTimeFrames: number[];
     initialHtml: string;
+    screenSize: Screen;
     events: PageEvent[];
 }

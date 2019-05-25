@@ -6,7 +6,7 @@ This project's goal is to be a fully client side user experience recorder which 
 The idea of HTML diffing will be really useful as it will keep the data size really compact and avoid a lot of processing and complications while at the same time provide the exact site view.
 Simulation will just replay the events on a live site instance while the player will transition between site view states (different HTML). This will allow for skipping, fast forwarding, inactivity tracking, etc.
 
-There are a lot of use cases for this type of recording. The obvious use cases are for bug reporting, analytics, campaign tracking, and A/B testing. Eventually this can be compact enough for live sharing. Instead of sending bytes of each window frame (images) with huge size and network costs, it will be a few bytes of data.
+There are a lot of use cases for this type of recording. The obvious use cases are for bug reporting, analytics, campaign tracking, and A/B testing. Eventually this can be compact enough for live sharing. Instead of sending bytes of each window frame (pixels) with huge size and network costs, it will be a few bytes of data.
 
 ## Try it out
 
@@ -83,6 +83,9 @@ Treat HTML and CSS updates separate from user action.
 Prefer websockets for live sharing
 
 
-
 ## TODO:
 - Add fields to contain mutation data (added and removed nodes, attributes, etc) 
+- Optimize Render events using a virtual DOM differ
+- Support querying and aggregating data. Create an advanced querying front end for the player.
+- SQL connector module with mapped events to allow for mass reporting on events and session data.
+

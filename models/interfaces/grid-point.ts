@@ -1,6 +1,12 @@
 import { Point } from "./point";
 
-export interface GridPoint extends Point {
+export interface Screen {
     height: number;
     width: number;
-} 
+}
+
+export type GridScreen = Point & Screen;
+
+export interface GridPoint extends GridScreen {
+
+}

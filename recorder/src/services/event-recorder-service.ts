@@ -1,7 +1,7 @@
 import { PagePoint } from "@models/interfaces/page-point";
 import { UserEvent } from "@models/interfaces/user-event";
 import { SessionData } from "@models/interfaces/session-data";
-import { getEventType as getUserEventType } from "@models/user-event-type";
+import { getEventType as getUserEventType, UserEventType } from "@models/user-event-type";
 import { getEventType as getMutationEventType, MutationEventType } from "@models/mutation-event-type";
 import { UUIDUtility } from "../utilities/uuid";
 import { ElementUtility as NodeUtility } from '../utilities/node-helper';
@@ -94,7 +94,7 @@ export class EventRecorderService {
                 renderEvent.change = {
                     addedNodes,
                     removedNodeCount: mutation.removedNodes.length,
-                    index: index === null ? 0 : index + 1 
+                    index: index === null ? 0 : index + 1
                 } as NodeChange;
                 break;
         }
@@ -145,7 +145,7 @@ export class EventRecorderService {
 
         const navigationEvent: NavigationEvent = {
             ...this.createEvent(PageEventType.Navigation),
-            url: window.location.href,            
+            url: this._document.defaultView.location.href,
             resources: []
         };
 
@@ -172,7 +172,9 @@ export class EventRecorderService {
         };
 
         if (event instanceof MouseEvent)
-            userEvent.screenPoint = this.getMouseEventData(event);
+            userEvent.screenData = this.getMouseEventData(event);
+        else if (userEvent.type === UserEventType.RESIZE)
+            userEvent.screenData = this.getScreenSizeData();
 
         //eventData.htmlDiff = await this._htmlDiffWorker.execute({ source: lastEvent ? lastEvent.html : this._sessionData.initialHtml, target: eventData.html });
         //eventData.screenshotBase64 = await this._screenshotWorker.execute(eventData.html);
@@ -180,9 +182,16 @@ export class EventRecorderService {
         return userEvent;
     }
 
+    public getScreenSizeData() {
+        return {
+            height: this._document.defaultView.innerHeight,
+            width: this._document.defaultView.innerWidth
+        } as Screen;
+    }
+
     private getMouseEventData(event: MouseEvent): PagePoint {
         return (({ clientX: x, clientY: y, pageX, pageY }) =>
-            ({ x, y, pageX, pageY, height: window.innerHeight, width: window.innerWidth }))(event);
+            ({ x, y, pageX, pageY, ...this.getScreenSizeData() }))(event);
     }
 
 

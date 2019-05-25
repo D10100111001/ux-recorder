@@ -39,7 +39,7 @@ export class RecorderService {
 
     private _logger = document.defaultView.console;
     private _sessionData = this.getSessionData();
-    private _eventRecorder: EventRecorderService;
+    private _eventRecorder: EventRecorderService = new EventRecorderService(this._logger, this._sessionData, this._document);
     //private _localStorage: IStorageService = new LocalRecorderService(LOCAL_STORAGE_KEY);
     //private _storageService: IStorageService = new LocalRecorderService();
 
@@ -63,6 +63,7 @@ export class RecorderService {
                 cookies: CookieParserUtility.parse(document.cookie),
                 startDate: Date.now(),
                 url: this._document.defaultView.location.href,
+                screenSize: this._eventRecorder.getScreenSizeData(),
                 events: [],
                 activityTimeFrames: [],
             };
@@ -78,7 +79,6 @@ export class RecorderService {
     }
 
     public async init() {
-        this._eventRecorder = new EventRecorderService(this._logger, this._sessionData, this._document);
         await this._eventRecorder.init();
         await this._eventRecorder.createNavigationEvent();
 
@@ -201,6 +201,7 @@ export class RecorderService {
     private registerWindowEventHandlers(doc: Document) {
         this.registerEvent(doc, UserEventType.SITE_ENTER, ElementType.WINDOW, (e) => this.windowActivityCallback(e));
         this.registerEvent(doc, UserEventType.SITE_EXIT, ElementType.WINDOW, (e) => this.windowActivityCallback(e));
+        this.registerEvent(doc, UserEventType.RESIZE, ElementType.WINDOW);
     }
 
     private windowActivityCallback(e: UserEvent) {

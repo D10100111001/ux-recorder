@@ -8,6 +8,7 @@ export enum UserEventType {
     MOUSE_MOVE,
     DRAG,
     DROP,
+    RESIZE,
     MOUSE_SCROLL,
     KEY_DOWN,
     KEY_PRESS,
@@ -44,7 +45,8 @@ export const EVENT_TYPE_MAP: Record<string, UserEventType | UserEventType[]> = {
     'wheel': UserEventType.MOUSE_SCROLL,
     'keydown': UserEventType.KEY_DOWN,
     'keypress': UserEventType.KEY_PRESS,
-    'keyup': UserEventType.KEY_UP
+    'keyup': UserEventType.KEY_UP,
+    'resize': UserEventType.RESIZE
 }
 
 export const EVENT_TYPE_REVERSE_MAP = Object.keys(EVENT_TYPE_MAP).reduce((obj, item) => {
