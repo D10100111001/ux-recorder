@@ -15,7 +15,9 @@ There are a lot of use cases for this type of recording. The obvious use cases a
 2. cd into the `recorder` folder and execute `npm i`.
 3. Execute `npm run dev`. This starts a webpack-dev-server instance located at https://localhost:8080
 4. Use a chrome extension like JavaScript Injector to inject the resulting dist entry js file into a website of your choosing. https://chrome.google.com/webstore/detail/javascript-injector/djnjegpffahmfpjdlkciiecmeaebghlk
-OR
+
+**_OR_**
+
 4. Copy and paste this into the javascript console of any website (This will not work or give limited functionality if the website has various CSPs enabled.): 
 ```js
 var script = document.createElement('script');
