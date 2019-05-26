@@ -9,6 +9,8 @@ import { UserEvent } from "@models/interfaces/user-event";
 import { Store, StorageUtility } from "../utilities/local-storage";
 import { XHRProxy } from "../utilities/xhr";
 import { fetchProxy } from "../utilities/fetch";
+import { IRecorderStorageService } from "@models/interfaces/storage-service";
+import { WebApiStorageService } from "./web-api-storage-service";
 
 enum ElementType {
     WINDOW,
@@ -40,11 +42,14 @@ export class RecorderService {
     private _logger = document.defaultView.console;
     private _sessionData = this.getSessionData();
     private _eventRecorder: EventRecorderService = new EventRecorderService(this._logger, this._sessionData, this._document);
+    private _storageService: IRecorderStorageService = new WebApiStorageService(this._apiSessionUrl, this._apiEventUrl);
     //private _localStorage: IStorageService = new LocalRecorderService(LOCAL_STORAGE_KEY);
     //private _storageService: IStorageService = new LocalRecorderService();
 
     constructor(
         private _scriptHostUrl: string,
+        private _apiSessionUrl: string,
+        private _apiEventUrl: string,
         private _appId: string,
         private _document: Document
     ) { }
@@ -69,6 +74,13 @@ export class RecorderService {
             };
 
             sessionData.lastActivityDate = sessionData.startDate;
+
+            if (!this._storageService.createSession(sessionData)) {
+                this._logger.error('Failed to create a session. Terminating recorder...');
+                return null;
+            } else {
+                this._logger.debug('Successfully created session.');
+            }
         } else {
             this._logger.log('Resuming session...');
             sessionData = continuationSession;
@@ -79,6 +91,7 @@ export class RecorderService {
     }
 
     public async init() {
+        if (!this._sessionData) return;
         await this._eventRecorder.init();
         await this._eventRecorder.createNavigationEvent();
 

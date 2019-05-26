@@ -2,6 +2,7 @@ import { LinkedListItem } from "./linked-list";
 
 export interface PageEvent extends LinkedListItem<string> {
     id: string;
+    sessionId: string;
     date: number;
     //url: string;
     eventType: PageEventType;

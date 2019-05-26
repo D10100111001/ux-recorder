@@ -2,6 +2,7 @@
   "name": "user-experience-recorder",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server -w --config build/webpack.dev.js",
@@ -11,7 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "clean-webpack-plugin": "^1.0.1",
     "ts-loader": "^5.4.5",

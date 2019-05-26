@@ -41,6 +41,7 @@ export class EventRecorderService {
         const lastEvent = this._sessionData.events.slice(-1)[0];
         const eventData: PageEvent = {
             id: UUIDUtility.generate(),
+            sessionId: this._sessionData.id,
             date,
             eventType
         };

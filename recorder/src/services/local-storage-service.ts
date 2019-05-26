@@ -30,4 +30,8 @@ export class LocalRecorderService implements IRecorderStorageService {
             return newData;
         }, ['events.html'], this._store);
     }
+
+    async createSession(session: SessionData) {
+        return true;
+    }
 }

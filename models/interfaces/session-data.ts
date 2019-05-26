@@ -7,8 +7,6 @@ export interface SessionData {
     userId: string; // SessionId, token, fingerprint, etc
     appId: string;
     cookies: Record<string, string>;
-    request?: HttpData;
-    response?: HttpData;
     scriptHostUrl: string;
     url: string;
     startDate: number;
