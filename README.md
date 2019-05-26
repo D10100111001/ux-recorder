@@ -84,7 +84,7 @@ Prefer websockets for live sharing
 
 
 ## TODO:
-- Add fields to contain mutation data (added and removed nodes, attributes, etc) 
+- Add fields to contain mutation data (added and removed nodes, attributes, etc)
 - Optimize Render events using a virtual DOM differ
 - Support querying and aggregating data. Create an advanced querying front end for the player.
 - SQL connector module with mapped events to allow for mass reporting on events and session data.

@@ -176,6 +176,10 @@ export class EventRecorderService {
             userEvent.screenData = this.getMouseEventData(event);
         else if (userEvent.type === UserEventType.RESIZE)
             userEvent.screenData = this.getScreenSizeData();
+        else if (userEvent.type === UserEventType.INPUT)
+            userEvent.data = (event.target as HTMLInputElement).value;
+        else if (userEvent.type === UserEventType.COPY)
+            userEvent.data = this._document.getSelection().toString();
 
         //eventData.htmlDiff = await this._htmlDiffWorker.execute({ source: lastEvent ? lastEvent.html : this._sessionData.initialHtml, target: eventData.html });
         //eventData.screenshotBase64 = await this._screenshotWorker.execute(eventData.html);

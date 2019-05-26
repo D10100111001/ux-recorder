@@ -6,4 +6,5 @@ import { PageEvent } from "./event";
 export interface UserEvent extends PageEvent {
     screenData?: PagePoint | Screen;
     type: UserEventType;
+    data?: string;
 }
