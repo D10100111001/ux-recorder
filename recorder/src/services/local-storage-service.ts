@@ -25,7 +25,7 @@ export class LocalRecorderService implements IRecorderStorageService {
     }
 
     async saveSession(session: SessionData) {
-        return StorageUtility.mergeStore(this._key, session, session.id, (newData, oldData) => {
+        return StorageUtility.mergeStore(this._key, session, session.sessionId, (newData, oldData) => {
             newData.events = oldData.events.concat(newData.events);
             return newData;
         }, ['events.html'], this._store);

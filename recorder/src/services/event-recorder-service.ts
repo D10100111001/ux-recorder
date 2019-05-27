@@ -40,15 +40,15 @@ export class EventRecorderService {
         const date = Date.now();
         const lastEvent = this._sessionData.events.slice(-1)[0];
         const eventData: PageEvent = {
-            id: UUIDUtility.generate(),
-            sessionId: this._sessionData.id,
+            eventId: UUIDUtility.generate(),
+            sessionId: this._sessionData.sessionId,
             date,
             eventType
         };
 
         if (lastEvent) {
-            eventData.previousId = lastEvent.id;
-            lastEvent.nextId = eventData.id;
+            eventData.previousId = lastEvent.eventId;
+            lastEvent.nextId = eventData.eventId;
         }
 
         return eventData;
@@ -59,7 +59,7 @@ export class EventRecorderService {
         this._logger.log(PageEventType[event.eventType], event);
     }
 
-    private createDomEvent(node?: Element | Text, eventType = PageEventType.Dom) {
+    private createDomEvent(eventType: PageEventType, node?: Element | Text) {
         const domEvent: DomEvent = {
             ...this.createEvent(eventType),
             targetElementString: NodeUtility.getElementString(node),
@@ -72,7 +72,7 @@ export class EventRecorderService {
     createRenderEvent(mutation: MutationRecord) {
         const node = NodeUtility.verifyTargetNode(mutation.target);
         const renderEvent: RenderEvent = {
-            ...this.createDomEvent(node, PageEventType.Render),
+            ...this.createDomEvent(PageEventType.Render, node),
             type: getMutationEventType(mutation.type),
             change: null
         };
@@ -131,7 +131,7 @@ export class EventRecorderService {
         const errorEvent: ScriptErrorEvent = {
             ...this.createEvent(PageEventType.ScriptError),
             message: event.message,
-            arguments: [],
+            args: [],
             fileName: event.filename,
             lineNumber: event.lineno,
             columnNumber: event.colno,
@@ -168,7 +168,7 @@ export class EventRecorderService {
     createUserEvent(event: Event) {
         const element = NodeUtility.verifyTargetNode(event.target);
         const userEvent: UserEvent = {
-            ...this.createDomEvent(element, PageEventType.User),
+            ...this.createDomEvent(PageEventType.User, element),
             type: getUserEventType(event.target, event.type),
         };
 

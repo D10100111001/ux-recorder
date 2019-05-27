@@ -60,7 +60,7 @@ export class RecorderService {
 
         if (!continuationSession) {
             sessionData = {
-                id: UUIDUtility.generate(),
+                sessionId: UUIDUtility.generate(),
                 userId: '',
                 appId: this._appId,
                 scriptHostUrl: this._scriptHostUrl,

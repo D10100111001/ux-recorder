@@ -3,7 +3,7 @@ import { PageEvent } from "./event";
 import { Point } from "./point";
 
 export interface SessionData {
-    id: string;
+    sessionId: string;
     userId: string; // SessionId, token, fingerprint, etc
     appId: string;
     cookies: Record<string, string>;
