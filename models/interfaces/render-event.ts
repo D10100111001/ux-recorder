@@ -22,5 +22,5 @@ export interface TextChange extends IChange {
 export interface NodeChange extends IChange {
     index: number;
     addedNodes: string[];
-    removedNodeCount: number;
+    removedNodes: string[];
 }

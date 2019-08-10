@@ -91,3 +91,7 @@ Prefer websockets for live sharing
 - Support querying and aggregating data. Create an advanced querying front end for the player.
 - SQL connector module with mapped events to allow for mass reporting on events and session data.
 
+- Cleanup/Detach
+  - Disconnect mutation observer
+  - removeEventHandlers
+  

@@ -40,9 +40,11 @@ const ELEMENT_TYPE_TARGET_MAP: Record<ElementType, TargetMatchHandler> = {
 export class RecorderService {
 
     private _logger = document.defaultView.console;
+    private _storageService: IRecorderStorageService = new WebApiStorageService(this._apiSessionUrl, this._apiEventUrl);
+
     private _sessionData = this.getSessionData();
     private _eventRecorder: EventRecorderService = new EventRecorderService(this._logger, this._sessionData, this._document);
-    private _storageService: IRecorderStorageService = new WebApiStorageService(this._apiSessionUrl, this._apiEventUrl);
+    
     //private _localStorage: IStorageService = new LocalRecorderService(LOCAL_STORAGE_KEY);
     //private _storageService: IStorageService = new LocalRecorderService();
 
@@ -68,7 +70,7 @@ export class RecorderService {
                 cookies: CookieParserUtility.parse(document.cookie),
                 startDate: Date.now(),
                 url: this._document.defaultView.location.href,
-                screenSize: this._eventRecorder.getScreenSizeData(),
+                screenSize: EventRecorderService.getScreenSizeData(this._document),
                 events: [],
                 activityTimeFrames: [],
             };

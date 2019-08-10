@@ -91,11 +91,12 @@ export class EventRecorderService {
                 break;
             case MutationEventType.CHILD_LIST:
                 const addedNodes = [...mutation.addedNodes.values()].map(NodeUtility.nodeToHtml);
+                const removedNodes = [...mutation.removedNodes.values()].map(NodeUtility.nodeToHtml);
                 const index = NodeUtility.getNodeIndex(mutation.previousSibling);
                 renderEvent.change = {
                     addedNodes,
-                    removedNodeCount: mutation.removedNodes.length,
-                    index: index === null ? 0 : index + 1
+                    removedNodes,
+                    index: index === null ? 0 : index
                 } as NodeChange;
                 break;
         }
@@ -175,7 +176,7 @@ export class EventRecorderService {
         if (event instanceof MouseEvent)
             userEvent.screenData = this.getMouseEventData(event);
         else if (userEvent.type === UserEventType.RESIZE)
-            userEvent.screenData = this.getScreenSizeData();
+            userEvent.screenData = EventRecorderService.getScreenSizeData(this._document);
         else if (userEvent.type === UserEventType.INPUT)
             userEvent.data = (event.target as HTMLInputElement).value;
         else if (userEvent.type === UserEventType.COPY)
@@ -187,16 +188,16 @@ export class EventRecorderService {
         return userEvent;
     }
 
-    public getScreenSizeData() {
+    public static getScreenSizeData(document: Document) {
         return {
-            height: this._document.defaultView.innerHeight,
-            width: this._document.defaultView.innerWidth
+            height: document.defaultView.innerHeight,
+            width: document.defaultView.innerWidth
         } as Screen;
     }
 
     private getMouseEventData(event: MouseEvent): PagePoint {
         return (({ clientX: x, clientY: y, pageX, pageY }) =>
-            ({ x, y, pageX, pageY, ...this.getScreenSizeData() }))(event);
+            ({ x, y, pageX, pageY, ...EventRecorderService.getScreenSizeData(this._document) }))(event);
     }
 
 
